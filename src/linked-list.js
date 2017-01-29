@@ -70,7 +70,7 @@ class LinkedList {
         var current = this._head;
         var pos=0;
         if (index<0 || index>this.length){
-            return false;
+            return this;
         }
         else{
             //вставка в голову
@@ -124,6 +124,7 @@ class LinkedList {
         this.length = 0;
         this._head = null;
         this._tail = null;
+        return this;
     }
 
     deleteAt(index) 
@@ -131,22 +132,22 @@ class LinkedList {
         var current = this._head;
         var pos=0;
         if (this.length<1 || index<0 || index>this.length){
-            return this;
+            return false;
         }
         else{
             //проверка или не голова
             if (index==0){
-                this._head=this._head.next;
-                //если был только 1 элемент
-                if (!this._head){
-                    this._head.previous=null;
+                if (this.length==1){
+                    this._head=null;
+                    this._tail=null;
                 }
                 else{
-                    this._tail=null;
+                    this._head=this._head.next;
+                    this._head.previous=null;
                 }
             }
             //проверка или не хвост
-            if (index==this.length){
+            else if (index==this.length-1){
                 this._tail=this._tail.previous;
                 this._tail.next = null;
             }
